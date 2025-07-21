@@ -9,3 +9,4 @@ pub mod rotary_encoder;
 pub mod stepper;
 pub mod uart;
 pub mod ws2812;
+pub mod spi;

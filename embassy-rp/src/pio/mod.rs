@@ -288,6 +288,30 @@ impl<'l, PIO: Instance> Pin<'l, PIO> {
         }
     }
 
+    /// Configure the input logic inversion of this pin.
+    #[inline]
+    pub fn set_input_inversion(&mut self, invert: bool) {
+        self.pin.gpio().ctrl().modify(|w| {
+            w.set_inover(if invert {
+                crate::pac::io::vals::Inover::INVERT
+            } else {
+                crate::pac::io::vals::Inover::NORMAL
+            })
+        });
+    }
+
+    /// Configure the output logic inversion of this pin.
+    #[inline]
+    pub fn set_output_inversion(&mut self, invert: bool) {
+        self.pin.gpio().ctrl().modify(|w| {
+            w.set_outover(if invert {
+                crate::pac::io::vals::Outover::INVERT
+            } else {
+                crate::pac::io::vals::Outover::NORMAL
+            })
+        });
+    }
+
     /// Get the underlying pin number.
     pub fn pin(&self) -> u8 {
         self.pin._pin()
@@ -470,6 +494,37 @@ impl<'d, PIO: Instance, const SM: usize> StateMachineTx<'d, PIO, SM> {
             w.set_data_size(W::size());
             w.set_chain_to(ch.number());
             w.set_incr_read(true);
+            w.set_incr_write(false);
+            w.set_bswap(bswap);
+            w.set_en(true);
+        });
+        compiler_fence(Ordering::SeqCst);
+        Transfer::new(ch)
+    }
+
+    /// Prepare a DMA transfer of repeated data to TX FIFO.
+    pub fn dma_push_repeated<'a, C: Channel, W: Word>(
+        &'a mut self,
+        ch: Peri<'a, C>,
+        data: &'a W,
+        len: usize,
+        bswap: bool,
+    ) -> Transfer<'a, C> {
+        let pio_no = PIO::PIO_NO;
+        let p = ch.regs();
+        p.read_addr().write_value(data as *const W as u32);
+        p.write_addr().write_value(PIO::PIO.txf(SM).as_ptr() as u32);
+        #[cfg(feature = "rp2040")]
+        p.trans_count().write(|w| *w = len as u32);
+        #[cfg(feature = "_rp235x")]
+        p.trans_count().write(|w| w.set_count(len as u32));
+        compiler_fence(Ordering::SeqCst);
+        p.ctrl_trig().write(|w| {
+            // Set TX DREQ for this statemachine
+            w.set_treq_sel(crate::pac::dma::vals::TreqSel::from(pio_no * 8 + SM as u8));
+            w.set_data_size(W::size());
+            w.set_chain_to(ch.number());
+            w.set_incr_read(false);
             w.set_incr_write(false);
             w.set_bswap(bswap);
             w.set_en(true);
@@ -876,6 +931,20 @@ impl<'d, PIO: Instance + 'd, const SM: usize> StateMachine<'d, PIO, SM> {
     pub fn set_clock_divider(&mut self, clock_divider: FixedU32<U8>) {
         let sm = Self::this_sm();
         sm.clkdiv().write(|w| w.0 = clock_divider.to_bits() << 8);
+    }
+
+    /// Enable / disable autopull for this state machine
+    pub fn set_autopull(&mut self, val: bool) {
+        Self::this_sm().shiftctrl().modify(|w| {
+            w.set_autopull(val);
+        });
+    }
+
+    /// Enable / disable autopush for this state machine
+    pub fn set_autopush(&mut self, val: bool) {
+        Self::this_sm().shiftctrl().modify(|w| {
+            w.set_autopush(val);
+        });
     }
 
     #[inline(always)]
