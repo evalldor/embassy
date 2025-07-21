@@ -155,11 +155,13 @@ cargo batch \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32f303c8,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32f398ve,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32f378cc,defmt,exti,time-driver-any,time \
+    --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv6m-none-eabi --features stm32g0b0ce,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv6m-none-eabi --features stm32g0c1ve,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7m-none-eabi --features stm32f217zg,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32l552ze,dual-bank,defmt,exti,time-driver-any,low-power,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv6m-none-eabi --features stm32wl54jc-cm0p,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32wle5jb,defmt,exti,time-driver-any,time \
+    --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32g431kb,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32g474pe,dual-bank,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7m-none-eabi --features stm32f107vc,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7m-none-eabi --features stm32f103re,defmt,exti,time-driver-any,time \
@@ -169,6 +171,8 @@ cargo batch \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32h562ag,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32wba50ke,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32wba55ug,defmt,exti,time-driver-any,time \
+    --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32wba62cg,defmt,exti,time-driver-any,time \
+    --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32wba65ri,defmt,exti,time-driver-any,low-power,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32u5f9zj,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv8m.main-none-eabihf --features stm32u5g9nj,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv7em-none-eabi --features stm32wb35ce,defmt,exti,time-driver-any,time \
@@ -176,7 +180,7 @@ cargo batch \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv6m-none-eabi --features stm32u031r8,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv6m-none-eabi --features stm32u073mb,defmt,exti,time-driver-any,time \
     --- build --release --manifest-path embassy-stm32/Cargo.toml --target thumbv6m-none-eabi --features stm32u083rc,defmt,exti,time-driver-any,time \
-    --- build --release --manifest-path embassy-nxp/Cargo.toml --target thumbv8m.main-none-eabihf \
+    --- build --release --manifest-path embassy-nxp/Cargo.toml --target thumbv8m.main-none-eabihf --features lpc55,defmt \
     --- build --release --manifest-path embassy-mspm0/Cargo.toml --target thumbv6m-none-eabi --features mspm0c1104dgs20,defmt,time-driver-any \
     --- build --release --manifest-path embassy-mspm0/Cargo.toml --target thumbv6m-none-eabi --features mspm0g3507pm,defmt,time-driver-any \
     --- build --release --manifest-path embassy-mspm0/Cargo.toml --target thumbv6m-none-eabi --features mspm0g3519pz,defmt,time-driver-any \
@@ -244,6 +248,7 @@ cargo batch \
     --- build --release --manifest-path examples/stm32h5/Cargo.toml --target thumbv8m.main-none-eabihf --artifact-dir out/examples/stm32h5 \
     --- build --release --manifest-path examples/stm32h7/Cargo.toml --target thumbv7em-none-eabi --artifact-dir out/examples/stm32h7 \
     --- build --release --manifest-path examples/stm32h7b0/Cargo.toml --target thumbv7em-none-eabi --artifact-dir out/examples/stm32h7b0 \
+    --- build --release --manifest-path examples/stm32h723/Cargo.toml --target thumbv7em-none-eabi --artifact-dir out/examples/stm32h723 \
     --- build --release --manifest-path examples/stm32h735/Cargo.toml --target thumbv7em-none-eabi --artifact-dir out/examples/stm32h735 \
     --- build --release --manifest-path examples/stm32h755cm4/Cargo.toml --target thumbv7em-none-eabi --artifact-dir out/examples/stm32h755cm4 \
     --- build --release --manifest-path examples/stm32h755cm7/Cargo.toml --target thumbv7em-none-eabi --artifact-dir out/examples/stm32h755cm7 \
@@ -369,8 +374,9 @@ rm out/tests/pimoroni-pico-plus-2/adc
 # temporarily disabled
 rm out/tests/pimoroni-pico-plus-2/pwm
 
-# temporarily disabled, bad hardware connection.
-rm -f out/tests/rpi-pico/*
+# flaky
+rm out/tests/rpi-pico/pwm
+rm out/tests/rpi-pico/cyw43-perf
 
 if [[ -z "${TELEPROBE_TOKEN-}" ]]; then
     echo No teleprobe token found, skipping running HIL tests
